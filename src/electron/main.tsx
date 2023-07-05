@@ -34,7 +34,7 @@ app.disableHardwareAcceleration()
 initialize()
 
 const appIcon = nativeImage.createFromPath(path.join(__dirname, AppIcon))
-let isSimulator = process.env.LOCAL_TEST === 'true'
+const isSimulator = process.env.LOCAL_TEST === 'true'
 const isDev = process.env.NODE_ENV === 'development'
 
 function renderAbout(): string {
@@ -106,7 +106,10 @@ const onRunService = () => {
     productionRunApp = 'main.exe'
   }
 
-  const script = path.join(__dirname, `../../../extraResources/${productionRunApp}`)
+  const script = path.join(
+    __dirname,
+    `../../../extraResources/${productionRunApp}`
+  )
   return require('child_process').execFile(script)
 }
 
@@ -129,10 +132,10 @@ const createWindow = async () => {
         request.setHeader(header, value as any)
       })
 
-      let err: any | undefined = undefined
-      let statusCode: number | undefined = undefined
-      let statusMessage: string | undefined = undefined
-      let responseBody: string | undefined = undefined
+      let err: any | undefined
+      let statusCode: number | undefined
+      let statusMessage: string | undefined
+      let responseBody: string | undefined
 
       try {
         responseBody = await new Promise((resolve, reject) => {
@@ -338,7 +341,7 @@ const killTokenPort = (port) => {
     })
 }
 
-//app start here
+// app start here
 app.on('ready', () => {
   killTokenPort(process.env.CLIMATE_TOKEN_DRIVER_PORT || '31314')
 
@@ -354,7 +357,7 @@ const exitPyProc = () => {
 app.on('will-quit', (e) => {
   pyProc.kill()
 })
-//app quit+
+// app quit+
 app.on('window-all-closed', () => {
   pyProc.kill()
   app.quit()
@@ -376,7 +379,7 @@ ipcMain.handle('setLocale', (_event, locale: string) => {
 })
 
 const getMenuTemplate = () => {
-  let template = [
+  const template = [
     {
       label: i18n._(/* i18n */ { id: 'Climate' }),
       submenu: [

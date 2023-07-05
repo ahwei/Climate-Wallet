@@ -7,7 +7,7 @@ import {
 } from '@/types/ClimateServiceType'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-export const serviceURL = `${process.env.CLIMATE_TOKEN_DRIVER_HOST}:${process.env.CLIMATE_TOKEN_DRIVER_HOST_PORT}`
+export const serviceURL = `${process.env.CLIMATE_TOKEN_DRIVER_HOST}:${process.env.CLIMATE_TOKEN_DRIVER_PORT}`
 
 export const climateServiceApi = createApi({
   reducerPath: 'climateServiceApi',
@@ -16,7 +16,7 @@ export const climateServiceApi = createApi({
   endpoints: (builder) => ({
     getTransactions: builder.query<any, any>({
       query: (data) => ({
-        url: `/v1/transactions`,
+        url: '/v1/transactions',
         params: { ...data },
       }),
     }),
@@ -54,7 +54,7 @@ export const climateServiceApi = createApi({
       any
     >({
       query: () => ({
-        url: `/v1/keys`,
+        url: '/v1/keys',
         params: { derivation_index: 0, prefix: 'bls1238', hardened: false },
       }),
     }),
@@ -68,8 +68,8 @@ export const climateServiceApi = createApi({
       }
     >({
       query: ({ address }) => ({
-        url: `/v1/keys/parse`,
-        params: { address: address },
+        url: '/v1/keys/parse',
+        params: { address },
       }),
     }),
   }),
